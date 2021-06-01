@@ -18,13 +18,13 @@ namespace StepBuilder1 {
         // to simplify the exchange of information with the builder and avoid
         // duplication.
         struct Data {
-            std::string name;
             double weight;
             int legs;
+            std::string name;
         } m_data;
 
         // Private constructor.
-        Animal(const Data &data) : m_data{data} {};
+        Animal(const Data &data) : m_data{data} {}
 
         // STEP BUILDER
         // Protected chained class extension.
@@ -39,7 +39,7 @@ namespace StepBuilder1 {
             AnimalBuilder &withLegs(int legs) {
                 this->legs = legs;
                 return *this;
-            };
+            }
         };
 
         struct WeightBuilder : protected LegsBuilder {
@@ -53,7 +53,7 @@ namespace StepBuilder1 {
             WeightBuilder &withName(const std::string &name) {
                 this->name = name;
                 return *this;
-            };
+            }
         };
 
     public:

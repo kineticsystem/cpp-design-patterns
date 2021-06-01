@@ -1,5 +1,5 @@
 TEMPLATE = app
-CONFIG += console c++17
+CONFIG += console c++14
 CONFIG -= app_bundle
 CONFIG -= qt
 
@@ -10,4 +10,5 @@ SOURCES += \
 
 HEADERS += \
     builder/StepBuilder1.h \
-    builder/StepBuilder2.h
+    builder/StepBuilder2.h \
+    factory/Factory1.h

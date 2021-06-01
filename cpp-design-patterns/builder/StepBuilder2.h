@@ -24,7 +24,7 @@ namespace StepBuilder2 {
         } m_data;
 
         // Private constructor.
-        Animal(const Data &data) : m_data{data} {};
+        Animal(const Data &data) : m_data{data} {}
 
         // STEP BUILDER
         // Private extension of a common class and use of reinterpret_cast.
