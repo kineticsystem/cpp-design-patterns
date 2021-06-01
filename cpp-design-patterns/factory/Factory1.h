@@ -15,20 +15,22 @@ namespace Factory1 {
 
     class Animal {
     public:
-        virtual ~Animal() {}
+        virtual ~Animal() = default;
         virtual void identify() const = 0;
     };
 
     class Dog : public Animal {
     public:
-        virtual void identify() const {
+        virtual ~Dog() override = default;
+        virtual void identify() const override {
             std::cout << "I'm a dog." << std::endl;
         }
     };
 
     class Cat : public Animal {
     public:
-        virtual void identify() const {
+        virtual ~Cat() override = default;
+        virtual void identify() const override {
             std::cout << "I'm a cat." << std::endl;
         }
     };
@@ -37,7 +39,7 @@ namespace Factory1 {
 
     class AnimalFactory {
     public:
-        virtual ~AnimalFactory() {}
+        virtual ~AnimalFactory() = default;
         std::unique_ptr<Animal> create() const {
             return std::unique_ptr<Animal>(createImpl());
         }
@@ -56,7 +58,7 @@ namespace Factory1 {
 
     class CatFactory : public AnimalFactory {
     public:
-        virtual ~CatFactory() override {}
+        virtual ~CatFactory() override = default;
     private:
         virtual Cat * createImpl() const override {
             return new Cat;
