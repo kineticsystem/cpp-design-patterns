@@ -9,12 +9,12 @@ std::string Animal::name() const
     return m_data.name;
 }
 
-double Animal::weight() const
+float Animal::weight() const
 {
     return m_data.weight;
 }
 
-int Animal::legs() const
+uint8_t Animal::legs() const
 {
     return m_data.legs;
 }
@@ -22,6 +22,6 @@ int Animal::legs() const
 std::string Animal::toString() const
 {
     std::ostringstream buffer;
-    buffer << "Animal[name=" << m_data.name << ", weight=" << m_data.weight << ", legs=" << m_data.legs << "]";
+    buffer << "Animal[name=" << m_data.name << ", weight=" << m_data.weight << ", legs=" << unsigned(m_data.legs) << "]";
     return buffer.str();
 }

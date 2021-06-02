@@ -18,9 +18,10 @@ namespace StepBuilder1 {
         // to simplify the exchange of information with the builder and avoid
         // duplication.
         struct Data {
-            double weight;
-            int legs;
             std::string name;
+            float weight;
+            uint8_t legs;
+            uint8_t pad[3];
         } m_data;
 
         // Private constructor.
@@ -28,6 +29,9 @@ namespace StepBuilder1 {
 
         // STEP BUILDER
         // Protected chained class extension.
+        // The disavangage of this method is that we cannot change the order of
+        // the setter classes, even is we forward declare all classes before,
+        // making the builder more difficult to read.
 
         struct AnimalBuilder : protected Data {
             std::unique_ptr<Animal> build() {
@@ -36,14 +40,14 @@ namespace StepBuilder1 {
         };
 
         struct LegsBuilder : protected AnimalBuilder {
-            AnimalBuilder &withLegs(int legs) {
+            AnimalBuilder &withLegs(uint8_t legs) {
                 this->legs = legs;
                 return *this;
             }
         };
 
         struct WeightBuilder : protected LegsBuilder {
-            LegsBuilder &withWeight(double weight) {
+            LegsBuilder &withWeight(float weight) {
                 this->weight = weight;
                 return *this;
             }
@@ -64,8 +68,8 @@ namespace StepBuilder1 {
 
         // Getter methods.
         std::string name() const;
-        double weight() const;
-        int legs() const;
+        float weight() const;
+        uint8_t legs() const;
         std::string toString() const;
     };
 
@@ -77,14 +81,14 @@ namespace StepBuilder1 {
 
             auto dog = Animal::builder()
                 .withName("dog")
-                .withWeight(5.2)
+                .withWeight(5.2f)
                 .withLegs(4)
                 .build();
             std::cout << dog->toString() << std::endl;
 
             auto goose = *Animal::builder()
                 .withName("goose")
-                .withWeight(2.1)
+                .withWeight(2.1f)
                 .withLegs(2)
                 .build();
             std::cout << goose.toString() << std::endl;

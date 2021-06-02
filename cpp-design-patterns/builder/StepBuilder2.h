@@ -19,8 +19,9 @@ namespace StepBuilder2 {
         // avoid duplication.
         struct Data {
             std::string name;
-            double weight;
-            int legs;
+            float weight;
+            uint8_t legs;
+            uint8_t pad[3];
         } m_data;
 
         // Private constructor.
@@ -28,31 +29,40 @@ namespace StepBuilder2 {
 
         // STEP BUILDER
         // Private extension of a common class and use of reinterpret_cast.
+        // One advantage of this method is that we can change the order of the
+        // setter classes using forward declaration, to make the builder easier
+        // to read.
+        // Another advantage is that we can also use the return type auto.
 
-        struct AnimalBuilder : private Data {
-            std::unique_ptr<Animal> build() {
-                return std::unique_ptr<Animal>(new Animal{*this});
-            }
-        };
+        struct Builder;
+        struct WeightBuilder;
+        struct LegsBuilder;
+        struct AnimalBuilder;
 
-        struct LegsBuilder : private Data {
-           AnimalBuilder &withLegs(int legs) {
-                this->legs = legs;
-                return reinterpret_cast<AnimalBuilder&>(*this);
+        struct Builder : private Data {
+            auto &withName(const std::string& name) {
+                this->name = name;
+                return reinterpret_cast<WeightBuilder&>(*this);
             }
         };
 
         struct WeightBuilder : private Data {
-            LegsBuilder &withWeight(double weight) {
+            auto &withWeight(float weight) {
                 this->weight = weight;
                 return reinterpret_cast<LegsBuilder&>(*this);
             }
         };
 
-        struct Builder : private Data {
-            WeightBuilder& withName(const std::string& name){
-                this->name = name;
-                return reinterpret_cast<WeightBuilder&>(*this);
+        struct LegsBuilder : private Data {
+           auto &withLegs(uint8_t legs) {
+                this->legs = legs;
+                return reinterpret_cast<AnimalBuilder&>(*this);
+            }
+        };
+
+        struct AnimalBuilder : private Data {
+            auto build() {
+                return std::unique_ptr<Animal>(new Animal{*this});
             }
         };
 
@@ -64,8 +74,8 @@ namespace StepBuilder2 {
 
         // Getter methods.
         std::string name() const;
-        double weight() const;
-        int legs() const;
+        float weight() const;
+        uint8_t legs() const;
         std::string toString() const;
     };
 
@@ -77,14 +87,14 @@ namespace StepBuilder2 {
 
             auto panter = Animal::builder()
                 .withName("panter")
-                .withWeight(10.5)
+                .withWeight(10.5f)
                 .withLegs(4)
                 .build();
             std::cout << panter->toString() << std::endl;
 
             auto lion = *Animal::builder()
-                .withName("panter")
-                .withWeight(10.5)
+                .withName("lion")
+                .withWeight(10.5f)
                 .withLegs(4)
                 .build();
             std::cout << lion.toString() << std::endl;
