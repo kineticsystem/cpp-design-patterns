@@ -13,3 +13,7 @@ A step builder which constructs an Animal object with mandatory parameters, impl
 **StepBuilder2**
 
 A more readable step builder which constructs an Animal object with mandatory parameters, implemented using a set of classes and reinterpret_cast.
+
+**StepBuilder3**
+
+A step builder using reinterpret_cast and unique smart pointers.
