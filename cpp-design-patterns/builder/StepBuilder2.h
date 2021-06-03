@@ -85,6 +85,7 @@ namespace StepBuilder2 {
     struct Test {
         static void execute() {
 
+            std::cout << "STEP BUILDER WITH REINTERPRED_CAST" << std::endl;
             auto panter = Animal::builder()
                 .withName("panter")
                 .withWeight(10.5f)
@@ -98,6 +99,7 @@ namespace StepBuilder2 {
                 .withLegs(4)
                 .build();
             std::cout << lion.toString() << std::endl;
+            std::cout << std::endl;
         }
     };
 }

@@ -79,6 +79,7 @@ namespace StepBuilder1 {
     struct Test {
         static void execute() {
 
+            std::cout << "STEP BUILDER WITH CHAINED EXTENSION" << std::endl;
             auto dog = Animal::builder()
                 .withName("dog")
                 .withWeight(5.2f)
@@ -92,6 +93,7 @@ namespace StepBuilder1 {
                 .withLegs(2)
                 .build();
             std::cout << goose.toString() << std::endl;
+            std::cout << std::endl;
         }
     };
 }

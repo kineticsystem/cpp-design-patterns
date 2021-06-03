@@ -40,7 +40,7 @@ namespace Factory1 {
     class AnimalFactory {
     public:
         virtual ~AnimalFactory() = default;
-        std::unique_ptr<Animal> create() const {
+        auto create() const {
             return std::unique_ptr<Animal>(createImpl());
         }
     private:
@@ -86,6 +86,7 @@ namespace Factory1 {
     struct Test {
         static void execute() {
 
+            std::cout << "FACTORY RETURNING SMART POINTERS OF CONCRETE IMPLEMENTATIONS" << std::endl;
             auto client1 = std::make_unique<Client>(
                 std::make_unique<DogFactory>()
             );
@@ -95,6 +96,7 @@ namespace Factory1 {
                 std::make_unique<CatFactory>()
             );
             client2->print();
+            std::cout << std::endl;
         }
     };
 }
