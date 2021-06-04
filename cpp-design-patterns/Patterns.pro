@@ -4,10 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    Main.cpp \
-    builder/StepBuilder1.cpp \
-    builder/StepBuilder2.cpp \
-    builder/StepBuilder3.cpp
+    Main.cpp
 
 HEADERS += \
     builder/StepBuilder1.h \

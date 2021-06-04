@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <iostream>
+#include <sstream>
 
 /* ////////////////////////////////////////////////////////////////////////////
  * STEP BUILDER WITH DEPENDENCY INJECTION
@@ -93,11 +94,31 @@ namespace StepBuilder3 {
         }
 
         // Getter methods.
-        Tag &tag() const;
-        std::string name() const;
-        float weight() const;
-        uint8_t legs() const;
-        std::string toString() const;
+
+        Tag &tag() const {
+            return *m_data.tag;
+        }
+
+        std::string name() const {
+            return m_data.name;
+        }
+
+        float weight() const {
+            return m_data.weight;
+        }
+
+        uint8_t legs() const {
+            return m_data.legs;
+        }
+
+        std::string toString() const {
+            std::ostringstream buffer;
+            buffer << "Animal[tag=" << m_data.tag->number()
+                   << ",name=" << m_data.name
+                   << ", weight=" << m_data.weight
+                   << ", legs=" << unsigned(m_data.legs) << "]";
+            return buffer.str();
+        }
     };
 
     /* ////////////////////////////////////////////////////////////////////////////

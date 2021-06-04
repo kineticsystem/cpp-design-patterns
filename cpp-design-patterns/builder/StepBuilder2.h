@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <iostream>
+#include <sstream>
 
 /* ////////////////////////////////////////////////////////////////////////////
  * STEP BUILDER WITH REINTERPRED_CAST
@@ -73,10 +74,24 @@ namespace StepBuilder2 {
         }
 
         // Getter methods.
-        std::string name() const;
-        float weight() const;
-        uint8_t legs() const;
-        std::string toString() const;
+
+        std::string name() const {
+            return m_data.name;
+        }
+
+        float weight() const {
+            return m_data.weight;
+        }
+
+        uint8_t legs() const {
+            return m_data.legs;
+        }
+
+        std::string toString() const {
+            std::ostringstream buffer;
+            buffer << "Animal[name=" << m_data.name << ", weight=" << m_data.weight << ", legs=" << unsigned(m_data.legs) << "]";
+            return buffer.str();
+        }
     };
 
     /* ////////////////////////////////////////////////////////////////////////////
