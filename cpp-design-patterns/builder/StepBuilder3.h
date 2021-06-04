@@ -5,11 +5,12 @@
 #include <iostream>
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Step Builder implementation.
+ * STEP BUILDER WITH DEPENDENCY INJECTION
  */
 
 namespace StepBuilder3 {
 
+    /* This is the object we want to inject. */
     class Tag {
         uint16_t m_number;
     public:
@@ -45,7 +46,7 @@ namespace StepBuilder3 {
         // Private constructor.
         Animal(const Data &data) : m_data{data} {}
 
-        // STEP BUILDER WITH UNIQUE POINTERS
+        // STEP BUILDER WITH DEPENDENCY INJECTION
         // Private extension of a common class and use of reinterpret_cast.
         // One advantage of this method is that we can change the order of the
         // setter classes.
@@ -105,7 +106,7 @@ namespace StepBuilder3 {
     struct Test {
         static void execute() {
 
-            std::cout << "STEP BUILDER WITH UNIQUE POINTERS" << std::endl;
+            std::cout << "STEP BUILDER WITH DEPENDENCY INJECTION" << std::endl;
             auto fish = Animal::builder()
                 .withTag(std::make_unique<Tag>(333))
                 .withName("fish")

@@ -5,7 +5,7 @@
 #include <iostream>
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Step Builder implementation.
+ * STEP BUILDER WITH REINTERPRED_CAST
  */
 
 namespace StepBuilder2 {

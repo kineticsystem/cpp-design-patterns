@@ -5,7 +5,7 @@
 #include <iostream>
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Step Builder implementation.
+ * STEP BUILDER WITH CHAINED EXTENSION
  */
 
 namespace StepBuilder1 {
