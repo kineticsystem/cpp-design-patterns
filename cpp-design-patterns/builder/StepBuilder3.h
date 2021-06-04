@@ -50,7 +50,7 @@ namespace StepBuilder3 {
         // STEP BUILDER WITH DEPENDENCY INJECTION
         // Private extension of a common class and use of reinterpret_cast.
         // One advantage of this method is that we can change the order of the
-        // setter classes.
+        // setter classes to make the builder easier to read.
         // Another advantage is that we can also use the return type auto.
 
         struct TagBuilder : private Data {

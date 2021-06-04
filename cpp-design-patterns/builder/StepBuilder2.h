@@ -28,17 +28,11 @@ namespace StepBuilder2 {
         // Private constructor.
         Animal(const Data &data) : m_data{data} {}
 
-        // STEP BUILDER
+        // STEP BUILDER USING REINTERPRET_CAST
         // Private extension of a common class and use of reinterpret_cast.
         // One advantage of this method is that we can change the order of the
-        // setter classes using forward declaration, to make the builder easier
-        // to read.
+        // setter classes to make the builder easier to read.
         // Another advantage is that we can also use the return type auto.
-
-        struct Builder;
-        struct WeightBuilder;
-        struct LegsBuilder;
-        struct AnimalBuilder;
 
         struct Builder : private Data {
             auto &withName(const std::string& name) {
