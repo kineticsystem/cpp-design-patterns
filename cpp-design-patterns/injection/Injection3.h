@@ -1,5 +1,5 @@
-#ifndef EXAMPLE2_H
-#define EXAMPLE2_H
+#ifndef INJECTION_3_H
+#define INJECTION_3_H
 
 #include <memory>
 #include <iostream>
@@ -51,17 +51,17 @@ namespace Injection3 {
     };
 
     class B1 : public B {
-        shared_ptr<D> d;
+        unique_ptr<D> d;
     public:
-        B1(shared_ptr<D> d) : d{d} {}
+        B1(unique_ptr<D> d) : d{move(d)} {}
         virtual string str() const override { return "B1(" + d->str() + ")"; }
     };
 
     class A1 : public A {
-        shared_ptr<B> b;
-        shared_ptr<C> c;
+        unique_ptr<B> b;
+        unique_ptr<C> c;
     public:
-        A1(shared_ptr<B> b, shared_ptr<C> c) : b{b}, c{c} {}
+        A1(unique_ptr<B> b, unique_ptr<C> c) : b{move(b)}, c{move(c)} {}
         virtual string str() const override { return "A1(" + b->str() + "," + c->str() + ")"; }
     };
 
@@ -93,20 +93,16 @@ namespace Injection3 {
 
             cout << "PURE DEPENDENCY INJECTION" << endl;
 
-            {
-                auto a = make_shared<A1>(
-                    make_shared<B1>(
-                        make_shared<D1>()),
-                    make_shared<C1>());
-                cout << a->str() << endl;
-            }
+            auto a1 = make_unique<A1>(
+                make_unique<B1>(
+                    make_unique<D1>()),
+                make_unique<C1>());
+            cout << a1->str() << endl;
 
-            {
-                auto a = make_shared<A1>(
-                    make_shared<B2>(),
-                    make_shared<C2>());
-                cout << a->str() << endl;
-            }
+            auto a2 = make_unique<A1>(
+                make_unique<B2>(),
+                make_unique<C2>());
+            cout << a2->str() << endl;
 
             cout << endl;
         }

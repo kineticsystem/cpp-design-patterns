@@ -1,5 +1,5 @@
-#ifndef EXAMPLE1_H
-#define EXAMPLE1_H
+#ifndef INJECTION_2_H
+#define INJECTION_2_H
 
 #include <memory>
 #include <iostream>
@@ -27,17 +27,17 @@ namespace Injection2 {
     };
 
     class B1 {
-        shared_ptr<D1> d;
+        unique_ptr<D1> d;
     public:
-        B1(shared_ptr<D1> d) : d{d} {}
+        B1(unique_ptr<D1> d) : d{move(d)} {}
         virtual string str() const { return "B1(" + d->str() + ")"; }
     };
 
     class A1 {
-        shared_ptr<B1> b;
-        shared_ptr<C1> c;
+        unique_ptr<B1> b;
+        unique_ptr<C1> c;
     public:
-        A1(shared_ptr<B1> b, shared_ptr<C1> c) : b{b}, c{c} {}
+        A1(unique_ptr<B1> b, unique_ptr<C1> c) : b{move(b)}, c{move(c)} {}
         virtual string str() const { return "A1(" + b->str() + "," + c->str() + ")"; }
     };
 
@@ -54,10 +54,10 @@ namespace Injection2 {
 
             cout << "PARTIAL DEPENDENCY INJECTION" << endl;
 
-            auto a = make_shared<A1>(
-                make_shared<B1>(
-                    make_shared<D1>()),
-                make_shared<C1>());
+            auto a = make_unique<A1>(
+                make_unique<B1>(
+                    make_unique<D1>()),
+                make_unique<C1>());
             cout << a->str() << endl;
 
             cout << endl;

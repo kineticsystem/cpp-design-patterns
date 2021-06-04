@@ -1,10 +1,12 @@
-#ifndef EXAMPLE5_H
-#define EXAMPLE5_H
+#ifndef INJECTION_6_H
+#define INJECTION_6_H
 
 #include <memory>
 #include <iostream>
 #include <sstream>
 
+// DEPENDECY INJECTION WITH BUILDERS
+//
 // Consider again concrete classes A1,B1,C1,D1 with the following dependency
 // structure: A1(B1(D1),C1)
 // This time all dependencies are given in terms of interfaces A,B,C,D.
@@ -48,10 +50,10 @@ namespace Injection6 {
     };
 
     class B1 : public B {
-        shared_ptr<D> d;
+        unique_ptr<D> d;
     public:
         B1() {}
-        void setD(shared_ptr<D> d) { this->d = d; }
+        void setD(unique_ptr<D> d) { this->d = move(d); }
         virtual string str() const override {
             stringstream ss;
             ss << "B1(";
@@ -62,12 +64,33 @@ namespace Injection6 {
     };
 
     class A1 : public A {
-        shared_ptr<B> b; // optional
-        shared_ptr<C> c; // optional
+
+        unique_ptr<B> b; // optional
+        unique_ptr<C> c; // optional
+
+        class Builder {
+            unique_ptr<A1> a = make_unique<A1>();
+        public:
+            auto &setB(unique_ptr<B> b) {
+                a->setB(move(b));
+                return *this;
+            }
+            auto &setC(unique_ptr<C> c) {
+                a->setC(move(c));
+                return *this;
+            }
+            auto build() {
+                return move(a);
+            }
+        };
+
     public:
+
         A1() {}
-        void setB(shared_ptr<B> b) { this->b = b; }
-        void setC(shared_ptr<C> c) { this->c = c; }
+
+        void setB(unique_ptr<B> b) { this->b = move(b); }
+        void setC(unique_ptr<C> c) { this->c = move(c); }
+
         virtual string str() const override {
             stringstream ss;
             ss << "A1(";
@@ -77,21 +100,9 @@ namespace Injection6 {
             ss << ")";
             return ss.str();
         }
-    };
 
-    class A1Builder {
-        unique_ptr<A1> a = make_unique<A1>();
-    public:
-        A1Builder& setB(shared_ptr<B> b) {
-            a->setB(b);
-            return *this;
-        }
-        A1Builder& setC(shared_ptr<C> c) {
-            a->setC(c);
-            return *this;
-        }
-        shared_ptr<A1> build() {
-            return move(a);
+        static Builder builder() {
+            return {};
         }
     };
 
@@ -115,15 +126,11 @@ namespace Injection6 {
     struct Test {
         static void execute() {
 
-            {
-                auto a = make_shared<A1>();
-                cout << a->str() << endl;
-            }
+            auto a1 = make_unique<A1>();
+            cout << a1->str() << endl;
 
-            {
-                auto a = A1Builder().setB(make_shared<B2>()).setC(make_shared<C2>()).build();
-                cout << a->str() << endl;
-            }
+            auto a2 = A1::builder().setB(make_unique<B2>()).setC(make_unique<C2>()).build();
+            cout << a2->str() << endl;
 
             cout << endl;
         }

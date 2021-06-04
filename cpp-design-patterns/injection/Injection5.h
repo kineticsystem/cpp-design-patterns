@@ -1,11 +1,9 @@
-#ifndef EXAMPLE4_H
-#define EXAMPLE4_H
+#ifndef INJECTION_5_H
+#define INJECTION_5_H
 
 #include <memory>
 #include <iostream>
 #include <sstream>
-
-
 
 // PROPERTY/SETTER DEPENDECY INJECTION
 //
@@ -56,10 +54,10 @@ namespace Injection5 {
     };
 
     class B1 : public B {
-        shared_ptr<D> d;
+        unique_ptr<D> d;
     public:
         B1() {}
-        void setD(shared_ptr<D> d) { this->d = d; }
+        void setD(unique_ptr<D> d) { this->d = move(d); }
         virtual string str() const override {
             stringstream ss;
             ss << "B1(";
@@ -70,12 +68,12 @@ namespace Injection5 {
     };
 
     class A1 : public A {
-        shared_ptr<B> b; // optional
-        shared_ptr<C> c; // optional
+        unique_ptr<B> b; // optional
+        unique_ptr<C> c; // optional
     public:
         A1() {}
-        void setB(shared_ptr<B> b) { this->b = b; }
-        void setC(shared_ptr<C> c) { this->c = c; }
+        void setB(unique_ptr<B> b) { this->b = move(b); }
+        void setC(unique_ptr<C> c) { this->c = move(c); }
         virtual string str() const override {
             stringstream ss;
             ss << "A1(";
@@ -111,17 +109,13 @@ namespace Injection5 {
 
             cout << "PROPERTY/SETTER DEPENDECY INJECTION" << endl;
 
-            {
-                auto a = make_shared<A1>();
-                cout << a->str() << endl;
-            }
+            auto a1 = make_unique<A1>();
+            cout << a1->str() << endl;
 
-            {
-                auto a = make_shared<A1>();
-                a->setB(make_shared<B2>());
-                a->setC(make_shared<C2>());
-                cout << a->str() << endl;
-            }
+            auto a2 = make_unique<A1>();
+            a2->setB(make_unique<B2>());
+            a2->setC(make_unique<C2>());
+            cout << a2->str() << endl;
 
             cout << endl;
         }
