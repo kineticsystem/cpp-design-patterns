@@ -14,10 +14,11 @@ namespace StepBuilder1 {
     /* This is the object we want to build. */
     class Animal
     {
-
-        // This represents the internal status of the object to build. It is used
-        // to simplify the exchange of information with the builder and avoid
-        // duplication.
+        // This represents the internal state of the object to build as well
+        // as the internal state of the builder.
+        // This structure is not required but reduces code duplication.
+        // We can use its default copy contructor to transfer the state of
+        // the builder to the object being built.
         struct Data {
             std::string name;
             float weight;
