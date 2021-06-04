@@ -34,7 +34,7 @@ namespace StepBuilder3 {
             uint8_t pad[3];
 
             Data() = default;
-            Data(const Data &other) :
+            Data(const Data &other) : // Shallow copy.
                 tag{std::move(other.tag)},
                 name{other.name},
                 weight{other.weight},
