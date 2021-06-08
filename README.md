@@ -17,3 +17,8 @@ A more readable step builder which constructs an Animal object with mandatory pa
 **StepBuilder3**
 
 A step builder using reinterpret_cast and unique smart pointers.
+
+**Injection1-6**
+
+Different examples of dependency injection: Pure (or Poor Man's), Bastard, Optional and Builder-Based Dependency Injection.
+
