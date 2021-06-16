@@ -16,6 +16,11 @@ set (SRC
     injection/Injection3.h
     injection/Injection4.h
     injection/Injection5.h
-    injection/Injection6.h)
+    injection/Injection6.h
+    pimpl/Car.h
+    pimpl/Car.cpp
+    pimpl/CarImpl.h
+    pimpl/CarImpl.cpp
+)
 
 add_executable(Patterns ${SRC})

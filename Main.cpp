@@ -8,6 +8,7 @@
 #include "injection/Injection5.h"
 #include "injection/Injection6.h"
 #include "factory/Factory1.h"
+#include "pimpl/Car.h"
 
 int main() {
 
@@ -23,6 +24,8 @@ int main() {
     Injection6::Test::execute();
 
     Factory1::Test::execute();
+
+    Car::Test::execute();
 
     return 0;
 }
