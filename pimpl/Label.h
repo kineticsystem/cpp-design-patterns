@@ -35,6 +35,9 @@ namespace DPointer {
             Label label;
             label.test();
 
+            Widget widget;
+            widget.test();
+
             std::cout << std::endl;
         }
     };

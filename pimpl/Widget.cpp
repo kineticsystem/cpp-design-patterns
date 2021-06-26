@@ -17,7 +17,7 @@ Widget::WidgetPrivate::~WidgetPrivate()
 
 void Widget::WidgetPrivate::test()
 {
-    std::cout << "I am a Widget" << std::endl;
+    std::cout << "I am a " << q_ptr->name.toStdString() << std::endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

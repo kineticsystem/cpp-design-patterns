@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <iostream>
+#include <QString>
 
 namespace DPointer {
 
@@ -20,22 +21,9 @@ namespace DPointer {
         // To reduce the amount of memory allocation, only the base class Widget
         // contains a pointer to its private implementation.
         std::unique_ptr<WidgetPrivate> d_ptr;
-    };
 
-
-    /* /////////////////////////////////////////////////////////////////////////
-     * Examples.
-     */
-    struct WidgetTest {
-        static void execute() {
-
-            std::cout << "PIMPL IDIOM" << std::endl;
-
-            Widget widget;
-            widget.test();
-
-            std::cout << std::endl;
-        }
+    private:
+        const QString name = "Widget";
     };
 }
 
