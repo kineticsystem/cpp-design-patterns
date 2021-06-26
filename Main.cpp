@@ -8,7 +8,8 @@
 #include "injection/Injection5.h"
 #include "injection/Injection6.h"
 #include "factory/Factory1.h"
-#include "pimpl/Car.h"
+#include "pimpl/Widget.h"
+#include "pimpl/Label.h"
 
 int main() {
 
@@ -25,7 +26,7 @@ int main() {
 
     Factory1::Test::execute();
 
-    Car::Test::execute();
+    DPointer::Test::execute();
 
     return 0;
 }

@@ -2,8 +2,17 @@ cmake_minimum_required(VERSION 3.5)
 
 project(Patterns LANGUAGES CXX)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Tell CMake to look for Qt components.
+find_package(Qt5 REQUIRED COMPONENTS Core)
 
 set (SRC
     Main.cpp
@@ -17,10 +26,19 @@ set (SRC
     injection/Injection4.h
     injection/Injection5.h
     injection/Injection6.h
-    pimpl/Car.h
-    pimpl/Car.cpp
-    pimpl/CarImpl.h
-    pimpl/CarImpl.cpp
+    pimpl/Widget.h
+    pimpl/Widget.cpp
+    pimpl/Widget_p.h
+    pimpl/Label.h
+    pimpl/Label_p.h
+    pimpl/Label.cpp
+    mvc/View.h
+    mvc/View.cpp
+    mvc/Model.h
+    mvc/Model.cpp
 )
 
 add_executable(Patterns ${SRC})
+
+# Tell CMake what components are required by the application.
+target_link_libraries(Patterns PRIVATE Qt5::Core)
