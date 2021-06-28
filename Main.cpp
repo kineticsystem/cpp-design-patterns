@@ -10,6 +10,7 @@
 #include "factory/Factory1.h"
 #include "pimpl/Widget.h"
 #include "pimpl/Label.h"
+#include "mvc/View.h"
 
 int main() {
 
@@ -27,6 +28,8 @@ int main() {
     Factory1::Test::execute();
 
     DPointer::Test::execute();
+
+    MVC::Test::execute();
 
     return 0;
 }
