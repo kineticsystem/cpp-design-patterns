@@ -10,7 +10,8 @@
 #include "factory/Factory1.h"
 #include "pimpl/Widget.h"
 #include "pimpl/Label.h"
-#include "mvc/View.h"
+#include "mvc/ModelViewController1.h"
+#include "mvc/ModelViewController2.h"
 
 int main() {
 
@@ -29,7 +30,8 @@ int main() {
 
     DPointer::Test::execute();
 
-    MVC::Test::execute();
+    ModelViewController1::Test::execute();
+    ModelViewController2::Test::execute();
 
     return 0;
 }

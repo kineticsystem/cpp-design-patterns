@@ -32,7 +32,8 @@ set (SRC
     pimpl/Label.h
     pimpl/Label_p.h
     pimpl/Label.cpp
-    mvc/View.h
+    mvc/ModelViewController1.h
+    mvc/ModelViewController2.h
 )
 
 add_executable(Patterns ${SRC})
