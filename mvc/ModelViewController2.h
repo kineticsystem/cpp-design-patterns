@@ -8,8 +8,7 @@
 
 /* ////////////////////////////////////////////////////////////////////////////
  * MOVEL-VIEW-CONTROLLER PATTERN WITH GLOBAL MODELS
- * This is a MVC implementation using a static empty model to avoid checking
- * for null models.
+ * This is a MVC implementation using shared smart pointers.
  */
 
 namespace ModelViewController2 {
@@ -46,8 +45,7 @@ namespace ModelViewController2 {
      */
 
     // The model associated to the View is never null. If no model is given,
-    // a temporary global model is associated to all Views to avoid checking
-    // for nullptr.
+    // a default model is used.
     class View
     {
 
@@ -63,18 +61,13 @@ namespace ModelViewController2 {
             return m_model->setName(name); // No need to check for null.
         }
 
-        void setModel(Model *model) {
-            if (model) {
-                m_model = model;
-            } else {
-                m_model =  emptyModel.get();
-            }
+        void setModel(std::shared_ptr<Model> model) {
+            m_model = model;
         }
 
     private:
 
-        std::unique_ptr<Model> emptyModel = std::make_unique<Model>();
-        Model *m_model = emptyModel.get();
+        std::shared_ptr<Model> m_model = std::make_unique<Model>();
     };
 
     /* /////////////////////////////////////////////////////////////////////////
@@ -88,7 +81,7 @@ namespace ModelViewController2 {
             View view1;
             View view2;
 
-            std::cout << "Updating model for View1 and View2" << std::endl;
+            std::cout << "Updating default model for View1 and View2" << std::endl;
 
             view1.setNameField("Fred");
             view2.setNameField("Tony");
@@ -98,16 +91,16 @@ namespace ModelViewController2 {
 
             std::cout << "Changing View2 model" << std::endl;
 
-            std::unique_ptr<Model> model = std::make_unique<Model>();
+            std::shared_ptr<Model> model = std::make_shared<Model>();
             model->setName("John");
-            view2.setModel(model.get());
+            view2.setModel(model);
 
             std::cout << view1.nameField().toStdString() << std::endl;
             std::cout << view2.nameField().toStdString() << std::endl;
 
             std::cout << "Resetting View2 model" << std::endl;
 
-            view2.setModel(nullptr);
+            view2.setModel(std::make_shared<Model>());
             std::cout << view1.nameField().toStdString() << std::endl;
             std::cout << view2.nameField().toStdString() << std::endl;
 
