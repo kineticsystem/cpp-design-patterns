@@ -126,6 +126,8 @@ namespace Injection6 {
     struct Test {
         static void execute() {
 
+            cout << "DEPENDECY INJECTION WITH BUILDERS" << endl;
+
             auto a1 = make_unique<A1>();
             cout << a1->str() << endl;
 
