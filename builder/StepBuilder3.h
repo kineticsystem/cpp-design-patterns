@@ -28,7 +28,7 @@ namespace StepBuilder3 {
         // as the internal state of the builder.
         // This structure is not required but reduces code duplication.
         // Because we have a unique pointer, we define a custom copy
-        // contructor to transfer the state of the builder to the object being
+        // constructor to transfer the state of the builder to the object being
         // built.
         struct Data {
 

@@ -17,7 +17,7 @@ namespace StepBuilder1 {
         // This represents the internal state of the object to build as well
         // as the internal state of the builder.
         // This structure is not required but reduces code duplication.
-        // We can use its default copy contructor to transfer the state of
+        // We can use its default copy constructor to transfer the state of
         // the builder to the object being built.
         struct Data {
             std::string name;
@@ -31,7 +31,7 @@ namespace StepBuilder1 {
 
         // STEP BUILDER
         // Protected chained class extension.
-        // The disavangage of this method is that we cannot change the order of
+        // The disadvantage of this method is that we cannot change the order of
         // the setter classes, even is we forward declare all classes before,
         // making the builder more difficult to read.
 

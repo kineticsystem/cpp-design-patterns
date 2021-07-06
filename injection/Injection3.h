@@ -73,7 +73,7 @@ namespace Injection3 {
     //
     // The name "Poor Man's Dependency Injection and Pure Dependency Injection"
     // come from the fact that dependencies are injected into the constructor
-    // esplicitly without using a Dependency Injection Container.
+    // explicitly without using a Dependency Injection Container.
 
     class B2 : public B {
     public:

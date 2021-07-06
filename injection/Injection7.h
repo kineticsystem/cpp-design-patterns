@@ -9,7 +9,8 @@
 // This time all dependencies are given as template parameters.
 
 // This approach has the benefit of setting the dependencies at compile time
-// withoug incurring in the extra runtime overread due to virtual functions.
+// without incurring in the extra runtime overhead due to virtual functions.
+// The disadvantage is that dependencies cannot be changed at runtime.
 
 namespace Injection7 {
 
