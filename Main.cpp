@@ -7,6 +7,7 @@
 #include "injection/Injection4.h"
 #include "injection/Injection5.h"
 #include "injection/Injection6.h"
+#include "injection/Injection7.h"
 #include "factory/Factory1.h"
 #include "pimpl/Widget.h"
 #include "pimpl/Label.h"
@@ -25,6 +26,7 @@ int main() {
     Injection4::Test::execute();
     Injection5::Test::execute();
     Injection6::Test::execute();
+    Injection7::Test::execute();
 
     Factory1::Test::execute();
 

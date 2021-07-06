@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Tell CMake to look for Qt components.
@@ -26,6 +26,7 @@ set (SRC
     injection/Injection4.h
     injection/Injection5.h
     injection/Injection6.h
+    injection/Injection7.h
     pimpl/Widget.h
     pimpl/Widget.cpp
     pimpl/Widget_p.h
