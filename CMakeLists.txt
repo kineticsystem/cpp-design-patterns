@@ -19,6 +19,7 @@ set (SRC
     builder/StepBuilder1.h
     builder/StepBuilder2.h
     builder/StepBuilder3.h
+    builder/StepBuilder4.h
     factory/Factory1.h
     injection/Injection1.h
     injection/Injection2.h

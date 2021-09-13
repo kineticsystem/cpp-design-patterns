@@ -1,6 +1,7 @@
 #include "builder/StepBuilder1.h"
 #include "builder/StepBuilder2.h"
 #include "builder/StepBuilder3.h"
+#include "builder/StepBuilder4.h"
 #include "injection/Injection1.h"
 #include "injection/Injection2.h"
 #include "injection/Injection3.h"
@@ -19,6 +20,7 @@ int main() {
     StepBuilder1::Test::execute();
     StepBuilder2::Test::execute();
     StepBuilder3::Test::execute();
+    StepBuilder4::Test::execute();
 
     Injection1::Test::execute();
     Injection2::Test::execute();
