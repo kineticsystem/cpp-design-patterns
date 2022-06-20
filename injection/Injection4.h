@@ -16,7 +16,8 @@
 // An additional constructor is used to swap the dependency and it is mostly
 // used for testing.
 //
-// This patten makes our code testable, but tightly coupled with another modules.
+// This patten makes our code testable, but tightly coupled with other modules
+// and with the default constructor of your dependencies.
 //
 // https://blogs.cuttingedge.it/steven/posts/2013/di-anti-pattern-multiple-constructors/
 // https://stackoverflow.com/questions/7099406/what-is-the-real-difference-between-bastard-injection-and-poor-mans-injectio
