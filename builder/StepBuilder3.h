@@ -9,7 +9,7 @@
  * STEP BUILDER DATA COPY
  */
 
-namespace StepBuilder3 {
+namespace stepbuilder3 {
 
     /* This is the object we want to build. */
     class Animal

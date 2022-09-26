@@ -9,7 +9,7 @@
  * STEP BUILDER WITH REINTERPRED_CAST
  */
 
-namespace StepBuilder2 {
+namespace stepbuilder2 {
 
     /* This is the object we want to build. */
     class Animal

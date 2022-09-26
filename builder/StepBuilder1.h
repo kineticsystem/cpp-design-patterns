@@ -9,7 +9,7 @@
  * STEP BUILDER WITH CHAINED EXTENSION
  */
 
-namespace StepBuilder1 {
+namespace stepbuilder1 {
 
     /* This is the object we want to build. */
     class Animal

@@ -9,7 +9,7 @@
  * STEP BUILDER WITH DEPENDENCY INJECTION
  */
 
-namespace StepBuilder4 {
+namespace stepbuilder4 {
 
     /* This is the object we want to inject. */
     class Tag {
