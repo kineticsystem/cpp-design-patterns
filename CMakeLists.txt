@@ -1,15 +1,12 @@
-cmake_minimum_required(VERSION 3.5)
-
-project(Patterns LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.22.1)
+project(Patterns VERSION 0.1.0 LANGUAGES CXX)
+include(GNUInstallDirs)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Tell CMake to look for Qt components.
 find_package(Qt5 REQUIRED COMPONENTS Core)
@@ -39,6 +36,9 @@ set (SRC
 )
 
 add_executable(Patterns ${SRC})
+target_compile_features(Patterns
+    PUBLIC cxx_std_20
+)
 
 # Tell CMake what components are required by the application.
 target_link_libraries(Patterns PRIVATE Qt5::Core)

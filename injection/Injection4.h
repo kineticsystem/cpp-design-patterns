@@ -1,8 +1,8 @@
 #ifndef INJECTION_4_H
 #define INJECTION_4_H
 
-#include <memory>
 #include <iostream>
+#include <memory>
 
 // BASTARD DEPENDENCY INJECTION
 //
@@ -26,96 +26,98 @@
 
 namespace Injection4 {
 
-    using namespace std;
+using namespace std;
 
-    class D {
-    public:
-        virtual ~D() = default;
-        virtual string str() const { return "D"; }
-    };
+class D {
+public:
+  virtual ~D() = default;
+  virtual string str() const { return "D"; }
+};
 
-    class C  {
-    public:
-        virtual ~C() = default;
-        virtual string str() const { return "C"; }
-    };
+class C {
+public:
+  virtual ~C() = default;
+  virtual string str() const { return "C"; }
+};
 
-    class B {
-    public:
-        virtual ~B() = default;
-        virtual string str() const { return "B"; }
-    };
+class B {
+public:
+  virtual ~B() = default;
+  virtual string str() const { return "B"; }
+};
 
-    class A {
-    public:
-        virtual ~A() = default;
-        virtual string str() const { return "A"; }
-    };
+class A {
+public:
+  virtual ~A() = default;
+  virtual string str() const { return "A"; }
+};
 
-    // Each concrete class implements the corresponding interface.
+// Each concrete class implements the corresponding interface.
 
-    class D1 : public D {
-    public:
-        D1() {}
-        virtual string str() const override { return "D1"; }
-    };
+class D1 : public D {
+public:
+  D1() {}
+  virtual string str() const override { return "D1"; }
+};
 
-    class C1 : public C {
-    public:
-        C1() {}
-        virtual string str() const override { return "C1"; }
-    };
+class C1 : public C {
+public:
+  C1() {}
+  virtual string str() const override { return "C1"; }
+};
 
-    class B1 : public B {
-        unique_ptr<D> d;
-    public:
-        B1() : d{make_unique<D1>()} {}
-        B1(unique_ptr<D> d) : d{move(d)} {}
-        virtual string str() const override { return "B1(" + d->str() + ")"; }
-    };
+class B1 : public B {
+  unique_ptr<D> d;
 
-    class A1 : public A {
-        unique_ptr<B> b;
-        unique_ptr<C> c;
-    public:
-        A1() : b{make_unique<B1>()}, c{make_unique<C1>()} {}
-        A1(unique_ptr<B> b, unique_ptr<C> c) : b{move(b)}, c{move(c)} {}
-        virtual string str() const override { return "A1(" + b->str() + "," + c->str() + ")"; }
-    };
+public:
+  B1() : d{make_unique<D1>()} {}
+  explicit B1(unique_ptr<D> d) : d{move(d)} {}
+  virtual string str() const override { return "B1(" + d->str() + ")"; }
+};
 
-    // This time the structure is loosely coupled by using interfaces and it is
-    // easy to swap B1 with a subclass B2 without necessarily providing the
-    // dependency D1 or a subclass of D1.
+class A1 : public A {
+  unique_ptr<B> b;
+  unique_ptr<C> c;
 
-    class B2 : public B {
-    public:
-        virtual string str() const override { return "B2"; }
-    };
+public:
+  A1() : b{make_unique<B1>()}, c{make_unique<C1>()} {}
+  explicit A1(unique_ptr<B> b, unique_ptr<C> c) : b{move(b)}, c{move(c)} {}
+  virtual string str() const override {
+    return "A1(" + b->str() + "," + c->str() + ")";
+  }
+};
 
-    class C2 : public C {
-    public:
-        virtual string str() const override { return "C2"; }
-    };
+// This time the structure is loosely coupled by using interfaces and it is
+// easy to swap B1 with a subclass B2 without necessarily providing the
+// dependency D1 or a subclass of D1.
 
-    /* ////////////////////////////////////////////////////////////////////////////
-     * Examples.
-     */
-    struct Test {
-        static void execute() {
+class B2 : public B {
+public:
+  virtual string str() const override { return "B2"; }
+};
 
-            cout << "BASTARD DEPENDENCY INJECTION" << endl;
+class C2 : public C {
+public:
+  virtual string str() const override { return "C2"; }
+};
 
-            auto a1 = make_unique<A1>();
-            cout << a1->str() << endl;
+/* ////////////////////////////////////////////////////////////////////////////
+ * Examples.
+ */
+struct Test {
+  static void execute() {
 
-            auto a2 = make_unique<A1>(
-                make_unique<B2>(),
-                make_unique<C2>());
-            cout << a2->str() << endl;
+    cout << "BASTARD DEPENDENCY INJECTION" << endl;
 
-            cout << endl;
-        }
-    };
-}
+    auto a1 = make_unique<A1>();
+    cout << a1->str() << endl;
+
+    auto a2 = make_unique<A1>(make_unique<B2>(), make_unique<C2>());
+    cout << a2->str() << endl;
+
+    cout << endl;
+  }
+};
+} // namespace Injection4
 
 #endif

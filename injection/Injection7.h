@@ -7,111 +7,112 @@
 // DEPENDECY INJECTION WITH TEMPLATES
 //
 // This time all dependencies are given as template parameters.
-
+//
 // This approach has the benefit of setting the dependencies at compile time
-// without incurring in the extra runtime overhead due to virtual functions.
+// without incurring extra runtime overhead due to virtual functions.
 // The disadvantage is that dependencies cannot be changed at runtime.
+//
+// Another advantage is that we can inject totally unrelated classes as long as
+// they have methods with the same signature. Injected classes do not need to
+// implement the same interface.
+//
+// See https://www.youtube.com/watch?v=yVogS4NbL6U
 
 namespace Injection7 {
 
-    using namespace std;
+using namespace std;
 
-    class D {
-    public:
-        string str() const { return "D"; }
-    };
+class D {
+public:
+  string str() const { return "D"; }
+};
 
-    class D1 {
-    public:
-        string str() const { return "D1"; }
-    };
+class D1 {
+public:
+  string str() const { return "D1"; }
+};
 
-    class C  {
-    public:
-        string str() const { return "C"; }
-    };
+class C {
+public:
+  string str() const { return "C"; }
+};
 
-    class C1  {
-    public:
-        string str() const { return "C1"; }
-    };
+class C1 {
+public:
+  string str() const { return "C1"; }
+};
 
-    template <class T = D>
-    class B {
-        T d;
-    public:
-        B() {}
-        B(const T &d) : d{d} {}
-        string str() const {
-            stringstream ss;
-            ss << "B(";
-            ss << d.str();
-            ss << ")";
-            return ss.str();
-        }
-    };
+template <class D> class B {
+  D d;
 
-    class B1 {
-    public:
-        string str() const {
-            stringstream ss;
-            ss << "B1";
-            return ss.str();
-        }
-    };
+public:
+  explicit B(const D &d) : d{d} {}
+  string str() const {
+    stringstream ss;
+    ss << "B(";
+    ss << d.str();
+    ss << ")";
+    return ss.str();
+  }
+};
 
-    template <class T1 = B<>, class T2 = C>
-    class A  {
-        T1 b;
-        T2 c;
-    public:
-        A() {};
-        A(const T1 &b, T2 const &c) : b{b}, c{c} {}
-        string str() const {
-              stringstream ss;
-              ss << "A(";
-              ss << b.str();
-              ss << ",";
-              ss << c.str();
-              ss << ")";
-              return ss.str();
-        }
-    };
+class B1 {
+public:
+  string str() const {
+    stringstream ss;
+    ss << "B1";
+    return ss.str();
+  }
+};
 
-    /* ////////////////////////////////////////////////////////////////////////////
-     * Examples.
-     */
-    struct Test {
-        static void execute() {
+template <class B, class C> class A {
+  B b;
+  C c;
 
-            cout << "TEMPLATE DEPENDECY INJECTION" << endl;
+public:
+  explicit A(const B &b, C const &c) : b{b}, c{c} {}
+  string str() const {
+    stringstream ss;
+    ss << "A(";
+    ss << b.str();
+    ss << ",";
+    ss << c.str();
+    ss << ")";
+    return ss.str();
+  }
+};
 
-            // Injecting using template.
-            A a1;
-            cout << a1.str() << endl;
+/* ////////////////////////////////////////////////////////////////////////////
+ * Examples.
+ */
+struct Test {
+  static void execute() {
 
-            // Injecting using template.
-            A<B<D1>, C1> a2;
-            cout << a2.str() << endl;
+    cout << "TEMPLATE DEPENDECY INJECTION" << endl;
 
-            // Injecting using template.
-            A<B1, C1> a3;
-            cout << a3.str() << endl;
+    C c;
+    C c1;
+    D d;
+    D d1;
 
-            // Injecting using constructor.
-            B1 b1;
-            C1 c1;
-            A a4{b1, c1};
-            cout << a4.str() << endl;
+    B<decltype(c)> b{c};
+    B1 b1;
 
-            // Injecting using constructor.
-            B{D1{}};
-            A a5{B{D1{}}, C1{}};
-            cout << a5.str() << endl;
+    // Injecting using template.
+    A<decltype(b), decltype(c)> a{b, c};
+    cout << a.str() << endl;
 
-            cout << endl;
-        }
-    };
-}
+    // Injecting using template.
+    A<decltype(b1), decltype(c1)> a1{b1, c1};
+    cout << a1.str() << endl;
+
+    // Injecting using template.
+    A<decltype(b), decltype(c1)> a3{b, c1};
+    cout << a3.str() << endl;
+
+    cout << endl;
+  }
+};
+} // namespace Injection7
 
 #endif // INJECTION_7_H

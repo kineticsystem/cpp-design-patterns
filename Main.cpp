@@ -14,13 +14,33 @@
 #include "pimpl/Label.h"
 #include "mvc/ModelViewController1.h"
 #include "mvc/ModelViewController2.h"
+#include "expected/Expected.h"
+
+class Expected {
+public:
+    bool ok() {
+        return true;
+    }
+};
+
+Expected funct1() {
+    return {};
+}
+
 
 int main() {
 
-    StepBuilder1::Test::execute();
-    StepBuilder2::Test::execute();
-    StepBuilder3::Test::execute();
-    StepBuilder4::Test::execute();
+
+    if (auto result = funct1(); !result.ok()) {
+        return 1;
+    } else if (result = funct1();  !result.ok()) {
+
+    }
+
+    stepbuilder1::Test::execute();
+    stepbuilder2::Test::execute();
+    stepbuilder3::Test::execute();
+    stepbuilder4::Test::execute();
 
     Injection1::Test::execute();
     Injection2::Test::execute();
@@ -36,6 +56,8 @@ int main() {
 
     ModelViewController1::Test::execute();
     ModelViewController2::Test::execute();
+
+    expected::Test::execute();
 
     return 0;
 }
