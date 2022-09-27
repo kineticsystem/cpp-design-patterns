@@ -66,7 +66,7 @@ public:
   }
   string str() const {
     stringstream ss;
-    ss << "B(";
+    ss << "B1(";
     ss << d.str();
     ss << ")";
     return ss.str();
@@ -77,7 +77,7 @@ class B2 {
 public:
   string str() const {
     stringstream ss;
-    ss << "B1";
+    ss << "B2";
     return ss.str();
   }
 };
