@@ -25,6 +25,7 @@ set (SRC
     injection/Injection5.h
     injection/Injection6.h
     injection/Injection7.h
+    injection/Injection8.h
     pimpl/Widget.h
     pimpl/Widget.cpp
     pimpl/Widget_p.h
